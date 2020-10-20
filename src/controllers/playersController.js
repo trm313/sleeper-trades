@@ -1,6 +1,5 @@
 import axios from 'axios';
-import PLAYERS from '../data/players.json';
-
+import PLAYERS from '../data/formatted_players.json';
 
 const parseRosteredPlayerIds = (leagueRosters) => {
   return leagueRosters.map(l => l.players).flat()
@@ -11,6 +10,7 @@ const promiseCreateRosteredPlayerObject = (idArray) => {
     let data = {};
     for(let i=0; i < idArray.length; i++) {
       if (!data.hasOwnProperty(idArray[i])) {
+        // Assign base player metadata
         data[idArray[i]] = PLAYERS[idArray[i]];
       }
     }
@@ -53,11 +53,16 @@ const promiseJoinOwnerData = (teams, owners) => {
   return new Promise(tetheredJoinOwnerData);
 }
 
+
 export const loadTeamsWithPlayers = async (leagueRosters) => {
   let idArray = await promiseReturnRosteredPlayersAsIdArray(leagueRosters);
   let dataObj = await promiseCreateRosteredPlayerObject(idArray);
   let teams = await promiseCompileRosters(leagueRosters, dataObj);
+  // let teamsWithStats = await promiseJoinTradeValuesToPlayers(teams);
+  // console.log('teamsWithStats', teamsWithStats);
+
   let owners = await axios.get(`https://api.sleeper.app/v1/league/${leagueRosters[0].league_id}/users`)
-  let data = await promiseJoinOwnerData(teams, owners.data);
-  return data;
+  let teamsWithOwners = await promiseJoinOwnerData(teams, owners.data);
+  return teamsWithOwners;
 }
+

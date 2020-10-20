@@ -28,7 +28,8 @@
     "watch:css": "postcss src/styles/tailwind.css -o src/styles/tailwind.output.css -w",
     "start:react": "react-scripts start",
     "build:react": "react-scripts build",
-    "data:savePlayerData": "node ./scripts/savePlayerData.js"
+    "data:savePlayerData": "node ./scripts/savePlayerData.js",
+    "data:formatPlayerData": "node ./scripts/formatPlayerData.js"
   },
   "eslintConfig": {
     "extends": "react-app"

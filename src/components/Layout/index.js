@@ -40,6 +40,14 @@ const Layout = ({ children, onChangeLeague, selectedLeague }) => {
       <main className="w-full overflow-x-hidden">
         {children}
       </main>
+      <Row>
+        <div className="flex items-center justify-around">
+          <p>Trade Values Updated: 10/20/20</p>
+          <p>Team Data From SleeperApp</p>
+          <p>Trade Data From <a href="https://www.fantasycalc.com/" target="__blank">FantasyCalc</a></p>
+          <p>Trade Values From <a href="https://www.reddit.com/user/PeakedInHighSkool/" target="__blank">u/PeakedInHighSkool</a></p>
+        </div>
+      </Row>
     </div>
   )
 }

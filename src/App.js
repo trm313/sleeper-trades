@@ -74,6 +74,20 @@ function App() {
     await getLeagueTeams(id, setTeams);
   }
 
+  if (!selectedLeague || leagues.length === 0) {
+    return (
+      <div><p>Loading</p></div>
+    )
+  }
+
+  // let league = leagues.find(league => league.id === selectedLeague)
+  // console.log(league);
+  let FORMAT = "halfppr";
+  let WEEK = 'Week 6';
+  // if (league.scoring_settings.rec === 0) FORMAT = "standard";
+  // if (league.scoring_settings.rec === 1) FORMAT = "ppr";
+  // if (selectedLeague.scoring_settings.rec === 0) FORMAT = "standard"; 
+
   return (
     <Layout onChangeLeague={handleSelectLeague} selectedLeague={selectedLeague}>
       <Home />
