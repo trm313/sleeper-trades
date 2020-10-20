@@ -1,0 +1,52 @@
+{
+  "name": "project-template",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.20.0",
+    "chokidar-cli": "^2.1.0",
+    "easy-peasy": "^3.3.1",
+    "framer-motion": "^2.9.0",
+    "history": "^5.0.0",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.13.1",
+    "react-avatar": "^3.9.7",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "tailwindcss": "^1.8.13"
+  },
+  "scripts": {
+    "start": "npm-run-all --parallel watch:css start:react",
+    "build": "npm-run-all build:css build:react",
+    "test": "react-scripts test",
+    "build:css": "postcss src/styles/tailwind.css -o src/styles/tailwind.output.css",
+    "watch:css": "postcss src/styles/tailwind.css -o src/styles/tailwind.output.css -w",
+    "start:react": "react-scripts start",
+    "build:react": "react-scripts build",
+    "data:savePlayerData": "node ./scripts/savePlayerData.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "postcss-cli": "^8.1.0"
+  }
+}
