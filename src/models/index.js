@@ -25,6 +25,4 @@ const reducer = {
   })
 }
 
-const store = createStore(reducer);
-export default store;
-
+export default reducer;
