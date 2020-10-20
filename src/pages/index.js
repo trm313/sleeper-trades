@@ -23,11 +23,11 @@ const Home = () => {
   return (
     <div className="">
       <h1>Home</h1>
-      <div className="flex">
-        <div className="">
+      <div className="flex bg-gray-600 px-8 rounded-xl">
+        <div className="pr-2">
           <TeamRoster team={myTeam} />
         </div>
-        <div className="flex w-full overflow-x-auto scrolling-touch">
+        <div className="pl-2 flex w-full overflow-x-auto scrolling-touch">
           { otherTeams.map(team => (
             <TeamRoster team={team} />
           ))}

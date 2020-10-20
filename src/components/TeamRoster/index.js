@@ -28,7 +28,7 @@ const Player = ({ player, benched = false }) => {
   }
 
   return (
-    <div className="flex items-center mb-2">
+    <div className="flex items-center mb-2 w-40">
       <div 
         className="w-10 h-6 rounded text-2xs flex items-center justify-center flex-shrink-0 mr-1" 
         style={{ 
@@ -40,8 +40,8 @@ const Player = ({ player, benched = false }) => {
       </div>
       <div className="">
         <p
-          className="truncate" 
-          title={ name }
+          className="w-24 truncate text-sm font-medium" 
+          title={ `${name} - ${player.position} - ${player.team}` }
          >
             { name }
         </p>
