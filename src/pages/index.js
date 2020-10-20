@@ -21,8 +21,7 @@ const Home = () => {
   const otherTeams = teams.filter(t => t.owner_id !== user.id);
 
   return (
-    <div className="">
-      <h1>Home</h1>
+    <div className="my-4">
       <div className="flex bg-gray-600 rounded-xl">
         <div className="px-4 rounded-xl bg-gray-800">
           <TeamRoster team={myTeam} />

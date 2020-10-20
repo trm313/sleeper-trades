@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 const Row = (props) => (
-  <div className="">
+  <div className="flex">
     {props.children}
   </div>
 )
@@ -33,7 +33,7 @@ const Layout = ({ children, onChangeLeague, selectedLeague }) => {
   const leagues = useStoreState(state => state.leagues);
 
   return (
-    <div className="h-screen w-screen inset-0 bg-gray-700 text-white font-sans flex flex-col overflow-x-hidden">
+    <div className="h-screen w-screen inset-0 bg-gray-700 text-white font-sans flex flex-col justify-between overflow-x-hidden p-4">
       <Row>
         <LeagueList leagues={leagues} onChangeLeague={onChangeLeague} selectedLeague={selectedLeague} />
       </Row>

@@ -21,9 +21,6 @@ const TeamRoster = ({ team }) => {
           <Player player={player} benched={true} showValue={true} />
         ))}
       </div>
-      <div className="">
-        <Analysis team={team} />
-      </div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { positionStyles } from '../../constants'
+import { positionStyles } from '../../constants/styleEnums'
 
 const Player = ({ player, benched = false, showValue = false }) => {
   if (!player) return null;

@@ -10,10 +10,11 @@ for (var id in rawSleeperData) {
   let fullname = player.first_name + " " + player.last_name;
   fullname = fullname.replace(/[.]/g, "");
 
-  if (fullname === 'Patrick Mahomes') {
-    // They have a bug, PMahomes is listed twice, once without the II and once with (and the one with is the most recent values)
-    fullname = 'Patrick Mahomes II';
+  if (['Patrick Mahomes', 'Todd Gurley', 'Ronald Jones'].includes(fullname)) {
+    // They have a bug, several players are listed twice, once without a suffix and once with (and the one with is the most recent values)
+    fullname += ' II';
   }
+  // "Jr", some "III" and a "V" also problematic
 
 
   if (rawFantasyCalcData.playersList.indexOf(fullname) > -1) {
