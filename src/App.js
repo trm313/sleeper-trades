@@ -19,6 +19,8 @@ function App() {
   const leagues = useStoreState(state => state.leagues);
   const setLeagues = useStoreActions((actions) => actions.setLeagues);
 
+  const [selectedLeague, setSelectedLeague] = useState(null);
+
   const players = useStoreState(state => state.players);
   const setPlayers = useStoreActions((actions) => actions.setPlayers);
 
@@ -44,6 +46,7 @@ function App() {
     const fetchUserLeagues = async () => {
       let leaguesRes = await axios.get(`https://api.sleeper.app/v1/user/${user.id}/leagues/nfl/2020`);
       setLeagues(leaguesRes.data);
+      setSelectedLeague(leaguesRes.data[0]?.league_id)
     }
 
     if (user.id) fetchUserLeagues();
@@ -67,11 +70,12 @@ function App() {
   }
 
   const handleSelectLeague = async (id) => {
+    setSelectedLeague(id);
     await getLeagueTeams(id, setTeams);
   }
 
   return (
-    <Layout onChangeLeague={handleSelectLeague}>
+    <Layout onChangeLeague={handleSelectLeague} selectedLeague={selectedLeague}>
       <Home />
     </Layout>
   );

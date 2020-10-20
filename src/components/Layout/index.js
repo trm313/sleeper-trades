@@ -7,36 +7,36 @@ import {
   Link
 } from "react-router-dom";
 
-const Column = (props) => (
+const Row = (props) => (
   <div className="">
     {props.children}
   </div>
 )
 
-const LeagueItem = ({ league, onSelect }) => (
-  <div className="px-4 py-2" onClick={() => onSelect(league.league_id)}>
-    <h4 className="">{league.name}</h4>
-    <p className="text-xs text-gray-200">{league.total_rosters} team, {league.scoring_settings.rec} ppr</p>
-  </div>
+const LeagueItem = ({ league, onSelect, selected }) => (
+  <button className={`px-6 py-4 mr-2 rounded-lg focus:outline-none ${selected ? 'bg-gray-800' : 'bg-gray-600'}`} onClick={() => onSelect(league.league_id)}>
+    <h4 className="text-sm font-medium">{league.name}</h4>
+    <p className="text-2xs text-gray-200">{league.total_rosters} team, {league.scoring_settings.rec} ppr</p>
+  </button>
 )
 
-const LeagueList = ({ leagues, onChangeLeague }) => (
-  <div className="flex flex-col">
+const LeagueList = ({ leagues, onChangeLeague, selectedLeague }) => (
+  <div className="flex">
     { leagues.map(league => (
-      <LeagueItem key={league.league_id} league={league} onSelect={onChangeLeague} />
+      <LeagueItem key={league.league_id} league={league} onSelect={onChangeLeague} selected={selectedLeague === league.league_id} />
     ))}
   </div>
 )
 
-const Layout = ({ children, onChangeLeague }) => {
+const Layout = ({ children, onChangeLeague, selectedLeague }) => {
   const user = useStoreState(state => state.user);
   const leagues = useStoreState(state => state.leagues);
 
   return (
-    <div className="h-screen w-screen inset-0 bg-gray-700 text-white font-sans flex overflow-x-hidden">
-      <Column>
-        <LeagueList leagues={leagues} onChangeLeague={onChangeLeague} />
-      </Column>
+    <div className="h-screen w-screen inset-0 bg-gray-700 text-white font-sans flex flex-col overflow-x-hidden">
+      <Row>
+        <LeagueList leagues={leagues} onChangeLeague={onChangeLeague} selectedLeague={selectedLeague} />
+      </Row>
       <main className="w-full overflow-x-hidden">
         {children}
       </main>
