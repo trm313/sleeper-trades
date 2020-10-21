@@ -6,6 +6,7 @@ import { loadTeamsWithPlayers } from './controllers/playersController';
 
 import Home from './pages';
 import Layout from './components/Layout';
+import Login from './components/Login';
 
 const SLEEPER_API = 'https://api.sleeper.app/v1';
 
@@ -15,19 +16,27 @@ const SLEEPER_API = 'https://api.sleeper.app/v1';
 function App() {
   const user = useStoreState(state => state.user);
   const setUser = useStoreActions((actions) => actions.setUser);
+  const setUsername = useStoreActions((actions) => actions.setUsername);
 
   const leagues = useStoreState(state => state.leagues);
   const setLeagues = useStoreActions((actions) => actions.setLeagues);
 
-  const [selectedLeague, setSelectedLeague] = useState(null);
+  const activeLeagueId = useStoreState(state => state.activeLeagueId);
+  const setActiveLeagueId = useStoreActions((actions) => actions.setActiveLeagueId);
 
-  const players = useStoreState(state => state.players);
-  const setPlayers = useStoreActions((actions) => actions.setPlayers);
-
-  const teams = useStoreState(state => state.teams);
   const setTeams = useStoreActions((actions) => actions.setTeams);
 
-
+  useEffect(() => {
+    if (localStorage.getItem('username')) {
+      let storage_username = localStorage.getItem('username');
+      setUsername(storage_username);
+      
+      if (localStorage.getItem('activeLeagueId')) {
+        let storage_activeLeagueId = localStorage.getItem('activeLeagueId');
+        setActiveLeagueId(storage_activeLeagueId);
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,23 +48,27 @@ function App() {
       });
     }
 
-    fetchUserData();
-  }, [])
+    user.username && fetchUserData();
+  }, [user.username])
 
   useEffect(() => {
     const fetchUserLeagues = async () => {
       let leaguesRes = await axios.get(`https://api.sleeper.app/v1/user/${user.id}/leagues/nfl/2020`);
       setLeagues(leaguesRes.data);
-      setSelectedLeague(leaguesRes.data[0]?.league_id)
     }
 
     if (user.id) fetchUserLeagues();
   }, [user.id])
 
   useEffect(() => {
-    // TODO: CHANGE leagues[1] to leagues[0] when i'm not testing
-    if (leagues.length > 0) getLeagueTeams(leagues[1].league_id, setTeams);
-  }, [leagues])
+    if (!localStorage.getItem('activeLeagueId') && !activeLeagueId && leagues) {
+      setActiveLeagueId(leagues[0]?.league_id);
+    }
+  }, [leagues, activeLeagueId])
+
+  useEffect(() => {
+    if (leagues.length > 0 && activeLeagueId ) getLeagueTeams(activeLeagueId, setTeams);
+  }, [leagues, activeLeagueId])
 
   const getLeagueTeams = async (league_id, cb) => {
     let league = await leagues.find(l => l.league_id === league_id);
@@ -70,15 +83,13 @@ function App() {
   }
 
   const handleSelectLeague = async (id) => {
-    setSelectedLeague(id);
-    await getLeagueTeams(id, setTeams);
+    if (id) {
+      setActiveLeagueId(id);
+      await getLeagueTeams(id, setTeams);
+    }
   }
 
-  if (!selectedLeague || leagues.length === 0) {
-    return (
-      <div><p>Loading</p></div>
-    )
-  }
+
 
   // let league = leagues.find(league => league.id === selectedLeague)
   // console.log(league);
@@ -87,10 +98,16 @@ function App() {
   // if (league.scoring_settings.rec === 0) FORMAT = "standard";
   // if (league.scoring_settings.rec === 1) FORMAT = "ppr";
   // if (selectedLeague.scoring_settings.rec === 0) FORMAT = "standard"; 
+  console.log('user', user);
 
   return (
-    <Layout onChangeLeague={handleSelectLeague} selectedLeague={selectedLeague}>
-      <Home />
+    <Layout onChangeLeague={handleSelectLeague} selectedLeague={activeLeagueId}>
+      { !user.username ? (
+        <Login />
+      ) : (
+        <Home />
+      )}
+      
     </Layout>
   );
 }

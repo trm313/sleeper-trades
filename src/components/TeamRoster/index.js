@@ -10,13 +10,13 @@ const TeamRoster = ({ team }) => {
     <div className="flex flex-col">
       <h4 className="font-bold text-gray-200 py-4">{team.ownerMap?.display_name}</h4>
       <div className="flex flex-col">
-        <h6 className="font-medium text-gray-400 text-xs">Starters</h6>
+        <h6 className="font-medium text-gray-200 text-xs">Starters</h6>
         { team.startersMap.map(player => (
           <Player player={player} showValue={true} />
         ))}
       </div>
       <div className="flex flex-col">
-         <h6 className="font-medium text-gray-400 text-xs">Bench</h6>
+         <h6 className="font-medium text-gray-200 text-xs">Bench</h6>
         { benchMap.map(player => (
           <Player player={player} benched={true} showValue={true} />
         ))}

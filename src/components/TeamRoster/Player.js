@@ -53,7 +53,7 @@ const Player = ({ player, benched = false, showValue = false }) => {
          >
             { name }
         </p>
-      <p className="text-2xs text-gray-400">
+      <p className="text-2xs text-gray-200">
         {player.position} - {player.team}
         {player.injury_status && <span className="text-red-600 ml-2 uppercase">{ injStatus }</span>}
       </p>
