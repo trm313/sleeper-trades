@@ -1,4 +1,4 @@
-import { createStore, action } from 'easy-peasy';
+import { createStore, action, thunk, useStoreActions } from 'easy-peasy';
 
 const userModel = {
   id: null,
@@ -16,9 +16,20 @@ const reducer = {
     state.user.username = payload;
     localStorage.setItem('username', payload);
   }),
-  logUserOut: action((state) => {
+  clearUser: action((state) => {
     state.user = userModel;
     localStorage.removeItem('username');
+  }),
+  logUserOut: thunk((actions) => {
+    actions.clearUser();
+    actions.setLeagues([]);
+    actions.setActiveLeagueId(null);
+    actions.setPlayers([]);
+    actions.setTeams([]);
+    // state.activeLeagueId = null;
+    // state.leagues = [];
+    // state.players = [];
+    // state.teams = [];
   }),
   setUser: action((state, payload) => {
     state.user = payload;
@@ -30,27 +41,15 @@ const reducer = {
     state.activeLeagueId = payload;
     if (payload) {
       localStorage.setItem('activeLeagueId', payload);
+    } else {
+      localStorage.removeItem('activeLeagueId');
     }
-    
   }),
   setPlayers: action((state, payload) => {
     state.players = payload;
   }),
   setTeams: action((state, payload) => {
     state.teams = payload;
-  }),
-  initializeApp: action((state) => {
-    if (localStorage.getItem('username')) {
-      let username = localStorage.getItem('username');
-      let activeLeagueId = localStorage.getItem('activeLeagueId');
-      state.activeLeagueId = activeLeagueId;
-      state.user.username = username;
-
-      if (localStorage.getItem('activeLeagueId')) {
-        // let activeLeagueId = localStorage.getItem('activeLeagueId');
-        // state.activeLeagueId = activeLeagueId;
-      }
-    }
   })
 }
 

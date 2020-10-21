@@ -14,7 +14,7 @@ const Row = (props) => (
 )
 
 const LeagueItem = ({ league, onSelect, selected }) => (
-  <button className={`px-6 py-4 mr-2 rounded-lg focus:outline-none ${selected ? 'bg-gray-800' : 'bg-gray-600'}`} onClick={() => onSelect(league.league_id)}>
+  <button className={`flex-col items-start px-6 py-4 mr-2 rounded-lg focus:outline-none ${selected ? 'bg-gray-800' : 'bg-gray-600'}`} onClick={() => onSelect(league.league_id)}>
     <h4 className="text-sm font-medium">{league.name}</h4>
     <p className="text-2xs text-gray-200">{league.total_rosters} team, {league.scoring_settings.rec} ppr</p>
   </button>
@@ -31,12 +31,15 @@ const LeagueList = ({ leagues, onChangeLeague, selectedLeague }) => (
 const Layout = ({ children, onChangeLeague, selectedLeague }) => {
   const user = useStoreState(state => state.user);
   const leagues = useStoreState(state => state.leagues);
+  
+  const logUserOut = useStoreActions(actions => actions.logUserOut);
 
   return (
     <div className="h-screen w-screen inset-0 bg-gray-700 text-white font-sans flex flex-col justify-between overflow-x-hidden p-4">
-      <Row>
+      <div className="flex justify-between items-center">
         <LeagueList leagues={leagues} onChangeLeague={onChangeLeague} selectedLeague={selectedLeague} />
-      </Row>
+        { user.username && <button className="py-2 px-4 text-sm uppercase text-gray-800" onClick={() => logUserOut()}>Logout</button> }
+      </div>
       <main className="w-full overflow-x-hidden">
         {children}
       </main>
