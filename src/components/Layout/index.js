@@ -7,9 +7,14 @@ import {
   Link
 } from "react-router-dom";
 
-const Row = (props) => (
-  <div className="flex">
-    {props.children}
+const Footer = (props) => (
+  <div className="flex justify-between">
+    <p>Trade Values Updated: 10/20/20</p>
+    <div className="flex flex-col items-end text-xs">
+      <p>Player data from <a href="https://sleeper.app" target="__blank">Sleeper API</a></p>
+      <p>Trade data from <a href="https://www.fantasycalc.com/" target="__blank">FantasyCalc</a></p>
+      <p>Trade values from <a href="https://www.reddit.com/user/PeakedInHighSkool/" target="__blank">u/PeakedInHighSkool</a></p>
+    </div>
   </div>
 )
 
@@ -43,14 +48,7 @@ const Layout = ({ children, onChangeLeague, selectedLeague }) => {
       <main className="w-full overflow-x-hidden">
         {children}
       </main>
-      <Row>
-        <div className="flex items-center justify-around">
-          <p>Trade Values Updated: 10/20/20</p>
-          <p>Team Data From SleeperApp</p>
-          <p>Trade Data From <a href="https://www.fantasycalc.com/" target="__blank">FantasyCalc</a></p>
-          <p>Trade Values From <a href="https://www.reddit.com/user/PeakedInHighSkool/" target="__blank">u/PeakedInHighSkool</a></p>
-        </div>
-      </Row>
+      <Footer />
     </div>
   )
 }

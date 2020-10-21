@@ -17,5 +17,12 @@ input:focus {
   @apply outline-none;
 }
 
+a {
+  @apply text-green-600 font-medium;
+}
+a:hover {
+  @apply text-green-800;
+}
+
 /* ---------------- */
 @tailwind utilities;

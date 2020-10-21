@@ -26,10 +26,6 @@ const reducer = {
     actions.setActiveLeagueId(null);
     actions.setPlayers([]);
     actions.setTeams([]);
-    // state.activeLeagueId = null;
-    // state.leagues = [];
-    // state.players = [];
-    // state.teams = [];
   }),
   setUser: action((state, payload) => {
     state.user = payload;

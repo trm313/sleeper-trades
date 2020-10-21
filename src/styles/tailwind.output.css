@@ -645,6 +645,19 @@ input:focus {
   outline-offset: 2px;
 }
 
+a {
+  --text-opacity: 1;
+  color: #38a169;
+  color: rgba(56, 161, 105, var(--text-opacity));
+  font-weight: 500;
+}
+
+a:hover {
+  --text-opacity: 1;
+  color: #276749;
+  color: rgba(39, 103, 73, var(--text-opacity));
+}
+
 /* ---------------- */
 
 .space-y-0 > :not(template) ~ :not(template) {
