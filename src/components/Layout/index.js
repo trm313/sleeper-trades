@@ -40,12 +40,12 @@ const Layout = ({ children, onChangeLeague, selectedLeague }) => {
   const logUserOut = useStoreActions(actions => actions.logUserOut);
 
   return (
-    <div className="h-screen w-screen inset-0 bg-gray-700 text-white font-sans flex flex-col justify-between overflow-x-hidden p-4">
+    <div className="h-screen w-screen max-w-full inset-0 bg-gray-700 text-white font-sans flex flex-col justify-between overflow-x-hidden p-4">
       <div className="flex justify-between items-center">
         <LeagueList leagues={leagues} onChangeLeague={onChangeLeague} selectedLeague={selectedLeague} />
-        { user.username && <button className="py-2 px-4 text-sm uppercase text-gray-800" onClick={() => logUserOut()}>Logout</button> }
+        { user.username && <button className="btn btn-secondary" onClick={() => logUserOut()}>Logout</button> }
       </div>
-      <main className="w-full overflow-x-hidden">
+      <main className="w-full flex-grow">
         {children}
       </main>
       <Footer />

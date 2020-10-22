@@ -2,27 +2,157 @@
 @tailwind components;
 
 /* Custom Styles */
-
-button {
-  @apply rounded-lg px-2 py-1 flex items-center justify-center bg-gray-200;
-}
-button:focus {
-  @apply outline-none;
-}
-
-input {
-  @apply px-2 py-1 rounded-lg bg-gray-100 text-gray-800;
-}
-input:focus {
-  @apply outline-none;
-}
-
 a {
   @apply text-green-600 font-medium;
 }
 a:hover {
   @apply text-green-800;
 }
+
+/* ------ */
+
+/* */
+
+.bg-graphic {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 80%;
+  height: 300px;
+  background-image: url(../images/Homepage_Demo@2x.png);
+  transform: skewX(5deg);
+  border-radius: 1rem;
+}
+
+.bg-graphic img {
+  transform: skewX(5deg);
+}
+
+.bg-graphic .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+
+/* --------- */
+
+form {
+  @apply w-full max-w-screen-sm;
+}
+.form-input {
+  @apply w-full px-2 py-1 rounded-full bg-gray-100 text-gray-800;
+}
+.form-input:focus {
+  @apply outline-none;
+}
+
+/* .input-btn-group {
+  @apply relative flex flex-col md:flex-row;
+} */
+
+/* @screen xs == default */
+.input-btn-group {
+  @apply w-full relative flex;
+}
+.input-btn-group button {
+  @apply flex-shrink-0 -translate-x-12;
+}
+.input-btn-group input {
+  @apply flex-grow;
+}
+
+/* @screen md {
+  .input-btn-group {
+    @apply relative;
+  }
+  .input-btn-group button {
+    @apply -translate-x-12;
+  }
+} */
+
+button,
+.btn {
+  @apply rounded-lg px-4 py-2 text-xs tracking-wider font-medium flex items-center justify-center bg-gray-200 rounded-full uppercase;
+}
+button:focus,
+.btn:focus {
+  @apply outline-none;
+}
+
+.btn-primary {
+  @apply py-2 px-8 font-semibold text-green-800 bg-green-600;
+}
+
+.btn-secondary {
+  @apply bg-transparent text-gray-200 border-2 border-gray-100;
+}
+.btn-secondary:hover {
+  @apply bg-green-600 text-gray-800;
+}
+
+.btn-cta {
+  @apply shadow-lg transition duration-75 ease-in-out transform;
+}
+.btn-cta:hover {
+  @apply translate-y-1 shadow-none;
+}
+
+.btn-gradient-primary {
+  background-image: linear-gradient(to top left, #00b7b3, #4ce2a7);
+  background-color: #00b7b3;
+  color: #022047;
+}
+
+/* .btn-default {
+  background-image: linear-gradient(to top left, #00b7b3, #4ce2a7);
+  background-color: #00b7b3;
+  color: #022047;
+}
+.btn-default:after {
+  content: "";
+  width: 84%;
+  background-color: #45e8a7;
+  display: block;
+  position: absolute;
+  height: 25px;
+  left: 8%;
+  z-index: -1;
+  bottom: 4px;
+  border-radius: 30px;
+  filter: blur(15px);
+  transition: opacity 0.15s ease-in-out;
+}
+
+.btn,
+button {
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  letter-spacing: 1px;
+  user-select: none;
+  border: 0;
+  padding: 0.813rem 5rem;
+  font-size: 1em;
+  line-height: 1.5;
+  border-radius: 2.5rem;
+  text-transform: uppercase;
+  font-family: "Muli", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  margin: 24px 0;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  -ms-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+} */
 
 /* ---------------- */
 @tailwind utilities;

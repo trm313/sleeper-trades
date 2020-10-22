@@ -4,6 +4,7 @@ import { StoreProvider } from 'easy-peasy';
 import { BrowserRouter } from 'react-router-dom';
 
 import './styles/tailwind.output.css';
+import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
