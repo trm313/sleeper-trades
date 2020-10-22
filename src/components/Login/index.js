@@ -19,10 +19,9 @@ const Login = () => {
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center relative">
-      <img src={appDemo} className="w-full sm:w-3/4 md: w-2/3 lg:w-1/2 transform skew-x-6 shadow-2xl rounded-lg sm:rounded-2xl" alt="App demo" />
-      {/* <div className="bg-graphic shadow-2xl" /> */}
       <h1 className="font-bold text-4xl">Sleeper Trades</h1>
-      <div className="flex flex-wrap items-center justify-center text-3xl">
+      <img src={appDemo} className="w-full sm:w-3/4 md: w-2/3 lg:w-1/2 transform skew-x-6 shadow-2xl rounded-lg sm:rounded-2xl" alt="App demo" />
+      <div className="flex flex-wrap items-center justify-center text-3xl mt-4">
         <i className="fas fa-bolt mr-4" />
         <h2 className="text-3xl mr-2">Powered by</h2>
         <a href="https://sleeper.app" target="__blank">

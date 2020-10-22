@@ -2,6 +2,7 @@ import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import TeamRoster from '../components/TeamRoster';
+import LoadingOverlay from '../components/Loading/loadingOverlay';
 
 const Home = () => {
   const user = useStoreState(state => state.user);
@@ -11,9 +12,7 @@ const Home = () => {
 
   if (teams.length === 0 || !user.id) {
     return (
-      <div className="">
-        <p>Loading</p>
-      </div>
+      <LoadingOverlay />
     )
   }
 
