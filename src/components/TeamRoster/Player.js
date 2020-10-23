@@ -81,7 +81,7 @@ const Player = ({
 
   return (
     <div
-      className='flex items-center mb-2 w-48 relative'
+      className='flex items-center mb-2 w-48 relative cursor-pointer'
       onClick={() => setIsPlayerPopupOpen(true)}
       ref={ref}
     >

@@ -1,16 +1,17 @@
 import React from "react";
+import Draggable from "react-draggable";
 
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
+import TradeValueTrend from "./TradeValueTrend";
+import StatsTable from "./StatsTable";
 
 const styles = {
   container:
-    "absolute bg-gray-700 text-gray-200 top-0 right-0 transform -translate-y-full py-2 px-4 rounded-lg",
+    "absolute z-30 bg-gray-700 text-gray-200 top-0 right-0 transform -translate-y-full py-2 px-4 rounded-lg cursor-move",
   name: "text-sm",
 };
 
 const generateTradeValueTrendData = (values, leagueFormat = "halfppr") => {
   let data = [];
-
   if (!values) return data;
 
   for (let key of Object.keys(values)) {
@@ -18,8 +19,6 @@ const generateTradeValueTrendData = (values, leagueFormat = "halfppr") => {
       week: null,
       value: null,
     };
-
-    console.log({ key, value: values[key] });
 
     if (!values[key][leagueFormat].value) {
       console.log("empty object", key);
@@ -38,7 +37,7 @@ const generateTradeValueTrendData = (values, leagueFormat = "halfppr") => {
     data.push(datapoint);
   }
 
-  return data;
+  return data.reverse();
 };
 
 const PlayerPopup = ({ player, leagueFormat, currentWeek }) => {
@@ -47,45 +46,26 @@ const PlayerPopup = ({ player, leagueFormat, currentWeek }) => {
     leagueFormat
   );
 
-  console.log({ data });
-
-  const trend = {
-    trendHeight: 100,
-    trendWidth: 200,
-  };
-
   return (
-    <div className={styles.container}>
-      <div className='flex'>
-        <h6 className={styles.name}>
-          {player.first_name + " " + player.last_name}
-        </h6>
+    <Draggable>
+      <div className={styles.container}>
+        <div className='flex'>
+          <h6 className={styles.name}>
+            {player.first_name + " " + player.last_name}
+          </h6>
+        </div>
+        <div className='my-2'>
+          <StatsTable
+            stats={player.stats_fantasyCalc?.stats}
+            seasonPts={player.stats_fantasyCalc?.seasonPts}
+            position={player.position}
+          />
+        </div>
+        <div className='my-2 flex flex-col'>
+          <TradeValueTrend data={data} />
+        </div>
       </div>
-      <div className=''>
-        {data.length === 0 ? (
-          <div
-            className='flex items-center justify-center'
-            style={{
-              height: `${trend.trendHeight}px`,
-              width: `${trend.trendWidth}px`,
-            }}
-          >
-            <p className='text-2xs uppercase text-gray-200'>No trade values</p>
-          </div>
-        ) : (
-          <LineChart
-            width={trend.trendWidth}
-            height={trend.trendHeight}
-            data={data}
-          >
-            <Line type='monotone' dataKey='value' stroke='#00b7b3' />
-            <CartesianGrid stroke='#ccc' />
-            <XAxis dataKey='week' />
-            <YAxis />
-          </LineChart>
-        )}
-      </div>
-    </div>
+    </Draggable>
   );
 };
 
