@@ -1,15 +1,6 @@
 import React from "react";
-import Player from "./Player";
-import { Chart } from "react-charts";
-import {
-  XYPlot,
-  VerticalGridLines,
-  HorizontalGridLines,
-  XAxis,
-  YAxis,
-  LineSeries,
-  AreaSeries,
-} from "react-vis";
+
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
 
 const styles = {
   container:
@@ -24,8 +15,8 @@ const generateTradeValueTrendData = (values, leagueFormat = "halfppr") => {
 
   for (let key of Object.keys(values)) {
     let datapoint = {
-      primary: null,
-      secondary: null,
+      week: null,
+      value: null,
     };
 
     console.log({ key, value: values[key] });
@@ -34,13 +25,13 @@ const generateTradeValueTrendData = (values, leagueFormat = "halfppr") => {
       console.log("empty object", key);
       // No trade values for this week
       datapoint = {
-        x: parseInt(key.split(" ")[1]),
-        y: 0,
+        week: parseInt(key.split(" ")[1]),
+        value: 0,
       };
     } else {
       datapoint = {
-        x: parseInt(key.split(" ")[1]),
-        y: parseFloat(values[key][leagueFormat].value),
+        week: parseInt(key.split(" ")[1]),
+        value: parseFloat(values[key][leagueFormat].value),
       };
     }
 
@@ -57,18 +48,6 @@ const PlayerPopup = ({ player, leagueFormat, currentWeek }) => {
   );
 
   console.log({ data });
-  // const data = [
-  //   { x: 0, y: 8 },
-  //   { x: 1, y: 5 },
-  //   { x: 2, y: 4 },
-  //   { x: 3, y: 9 },
-  //   { x: 4, y: 1 },
-  //   { x: 5, y: 7 },
-  //   { x: 6, y: 6 },
-  //   { x: 7, y: 3 },
-  //   { x: 8, y: 2 },
-  //   { x: 9, y: 0 },
-  // ];
 
   const trend = {
     trendHeight: 100,
@@ -94,56 +73,17 @@ const PlayerPopup = ({ player, leagueFormat, currentWeek }) => {
             <p className='text-2xs uppercase text-gray-200'>No trade values</p>
           </div>
         ) : (
-          <XYPlot height={trend.trendHeight} width={trend.trendWidth}>
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis
-              tickSizeOuter={4}
-              tickSizeInner={0}
-              style={{
-                line: { stroke: "#EDF2F9" },
-                ticks: { stroke: "#EDF2F9" },
-                text: {
-                  stroke: "none",
-                  fill: "#EDF2F9",
-                  fontWeight: 400,
-                  fontSize: "0.7rem",
-                },
-              }}
-            />
-            <YAxis
-              tickTotal={2}
-              tickSizeOuter={4}
-              tickSizeInner={0}
-              style={{
-                line: { stroke: "#EDF2F9" },
-                ticks: { stroke: "#EDF2F9" },
-                text: {
-                  stroke: "none",
-                  fill: "#EDF2F9",
-                  fontWeight: 400,
-                  fontSize: "0.7rem",
-                },
-              }}
-            />
-            <AreaSeries
-              data={data}
-              color='#00b7b3'
-              style={{
-                strokeLinejoin: "round",
-                strokeWidth: 4,
-              }}
-              fill='#00b7b3'
-            />
-          </XYPlot>
+          <LineChart
+            width={trend.trendWidth}
+            height={trend.trendHeight}
+            data={data}
+          >
+            <Line type='monotone' dataKey='value' stroke='#00b7b3' />
+            <CartesianGrid stroke='#ccc' />
+            <XAxis dataKey='week' />
+            <YAxis />
+          </LineChart>
         )}
-        {/* <XYPlot height={100} width={200}>
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
-          <LineSeries data={data} />
-        </XYPlot> */}
       </div>
     </div>
   );
