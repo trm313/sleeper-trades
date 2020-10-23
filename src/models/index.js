@@ -1,10 +1,16 @@
-import { createStore, action, thunk, useStoreActions } from 'easy-peasy';
+import { createStore, action, thunk, useStoreActions } from "easy-peasy";
 
 const userModel = {
   id: null,
-  username: null
-}
+  username: null,
+};
 
+// TODO: Calculate week to update automatically on Wednesdays
+const appStateModel = {
+  fullScreenLoader: false,
+  currentWeek: null, // 'Week 7'
+  leagueFormat: null, // 'standard', 'halfppr', 'ppr'
+};
 
 const reducer = {
   user: userModel,
@@ -12,13 +18,14 @@ const reducer = {
   leagues: [],
   players: {},
   teams: [],
+  appState: appStateModel,
   setUsername: action((state, payload) => {
     state.user.username = payload;
-    localStorage.setItem('username', payload);
+    localStorage.setItem("username", payload);
   }),
   clearUser: action((state) => {
     state.user = userModel;
-    localStorage.removeItem('username');
+    localStorage.removeItem("username");
   }),
   logUserOut: thunk((actions) => {
     actions.clearUser();
@@ -36,9 +43,9 @@ const reducer = {
   setActiveLeagueId: action((state, payload) => {
     state.activeLeagueId = payload;
     if (payload) {
-      localStorage.setItem('activeLeagueId', payload);
+      localStorage.setItem("activeLeagueId", payload);
     } else {
-      localStorage.removeItem('activeLeagueId');
+      localStorage.removeItem("activeLeagueId");
     }
   }),
   setPlayers: action((state, payload) => {
@@ -46,7 +53,13 @@ const reducer = {
   }),
   setTeams: action((state, payload) => {
     state.teams = payload;
-  })
-}
+  }),
+  setLeagueFormat: action((state, payload) => {
+    state.appState.leagueFormat = payload;
+  }),
+  setCurrentWeek: action((state, payload) => {
+    state.appState.currentWeek = payload;
+  }),
+};
 
 export default reducer;

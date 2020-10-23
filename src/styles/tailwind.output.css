@@ -616,8 +616,8 @@ a {
 
 a:hover {
   --text-opacity: 1;
-  color: #022047;
-  color: rgba(2, 32, 71, var(--text-opacity));
+  color: #4ce2a7;
+  color: rgba(76, 226, 167, var(--text-opacity));
 }
 
 /* ------ */
@@ -631,6 +631,8 @@ a:hover {
   width: 80%;
   height: 300px;
   background-image: url(../images/Homepage_Demo@2x.png);
+  background-repeat: no-repeat;
+  background-size: cover;
   transform: skewX(5deg);
   border-radius: 1rem;
 }

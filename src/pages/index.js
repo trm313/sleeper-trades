@@ -2,7 +2,7 @@ import React from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import TeamRoster from '../components/TeamRoster';
-import LoadingOverlay from '../components/Loading/loadingOverlay';
+import FullscreenLoader from '../components/Loading/fullscreenLoader';
 
 const Home = () => {
   const user = useStoreState(state => state.user);
@@ -12,7 +12,7 @@ const Home = () => {
 
   if (teams.length === 0 || !user.id) {
     return (
-      <LoadingOverlay />
+      <FullscreenLoader />
     )
   }
 
