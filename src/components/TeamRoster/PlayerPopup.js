@@ -6,7 +6,7 @@ import StatsTable from "./StatsTable";
 
 const styles = {
   container:
-    "absolute z-30 bg-gray-700 text-gray-200 top-0 right-0 transform -translate-y-full py-2 px-4 rounded-lg cursor-move",
+    "absolute z-30 bg-gray-700 text-gray-200 top-0 right-0 transform -translate-y-full py-2 px-4 rounded-lg cursor-move shadow-2xl",
   name: "text-sm",
 };
 
@@ -40,7 +40,27 @@ const generateTradeValueTrendData = (values, leagueFormat = "halfppr") => {
   return data.reverse();
 };
 
-const PlayerPopup = ({ player, leagueFormat, currentWeek }) => {
+const PopupHeader = ({ player, onClose }) => (
+  <div className='flex justify-between text-gray-200 text-sm'>
+    <div className='flex items-center'>
+      <i className='fas fa-grip-vertical text-xs mr-2' />
+      <p className='text-sm uppercase font-medium'>
+        <span>{player.first_name + " " + player.last_name}</span>
+        <span className='text-2xs ml-2'>
+          {player.position} - {player.team}
+        </span>
+      </p>
+    </div>
+    <div>
+      <i
+        className='fas fa-times cursor-pointer text-xs'
+        onClick={() => onClose()}
+      />
+    </div>
+  </div>
+);
+
+const PlayerPopup = ({ player, leagueFormat, currentWeek, onClose }) => {
   let data = generateTradeValueTrendData(
     player.stats_fantasyCalc?.values,
     leagueFormat
@@ -49,11 +69,7 @@ const PlayerPopup = ({ player, leagueFormat, currentWeek }) => {
   return (
     <Draggable>
       <div className={styles.container}>
-        <div className='flex'>
-          <h6 className={styles.name}>
-            {player.first_name + " " + player.last_name}
-          </h6>
-        </div>
+        <PopupHeader player={player} onClose={onClose} />
         <div className='my-2'>
           <StatsTable
             stats={player.stats_fantasyCalc?.stats}
