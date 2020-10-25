@@ -9,6 +9,16 @@ const TeamRoster = ({ team }) => {
 
   let benchMap = team.playersMap.filter((x) => !team.startersMap.includes(x));
 
+  /**
+   * TODO: Should do something like:
+   * let starters = startersMap
+   * let reserve = team.playersMap.filter(p => team.reserve.includes(p.player_id))
+   * let bench = team.playersMap.filter(x => !team.startersMap.includes(x));
+   * bench = bench.filter(x => !reserve.includes(x))
+   *
+   * then render a list for Starters, Bench, and Reserve
+   */
+
   return (
     <div className='flex flex-col'>
       <h4 className='font-bold text-gray-200 py-4'>
@@ -24,6 +34,7 @@ const TeamRoster = ({ team }) => {
           <Player
             key={player ? player?.player_id : "empty"}
             isEmptyRosterSpot={player?.player_id ? false : true}
+            isInjuredReserve={team.reserve?.includes(player?.player_id)}
             player={player}
             showValue={true}
             currentWeek={appState.currentWeek}
@@ -37,6 +48,7 @@ const TeamRoster = ({ team }) => {
           <Player
             key={player ? player?.player_id : "empty"}
             isEmptyRosterSpot={player?.player_id ? false : true}
+            isInjuredReserve={team.reserve?.includes(player?.player_id)}
             player={player}
             benched={true}
             showValue={true}

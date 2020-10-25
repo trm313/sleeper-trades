@@ -12,6 +12,7 @@ const Player = ({
   currentWeek = null,
   leagueFormat = null,
   isEmptyRosterSpot = false,
+  isInjuredReserve = false,
 }) => {
   const ref = useRef();
   const [isPlayerPopupOpen, setIsPlayerPopupOpen] = useState(false);
@@ -30,7 +31,7 @@ const Player = ({
 
   let bgColor;
   let posText = positionStyles[player.position].text;
-  if (player.injury_status === "IR") {
+  if (isInjuredReserve) {
     bgColor = positionStyles.IR.bgColor;
     // posText = positionStyles.IR.text;
   } else if (benched) {
