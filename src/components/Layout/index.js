@@ -1,56 +1,34 @@
-import React from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import React from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-const Footer = (props) => (
-  <div className="flex justify-between">
-    <p className="text-sm uppercase">Trade Values Updated: <span className="text-green-600 font-medium">10/20/20</span></p>
-    <div className="flex flex-col items-end text-xs">
-      <p>Player data from <a href="https://sleeper.app" target="__blank">Sleeper API</a></p>
-      <p>Trade data from <a href="https://www.fantasycalc.com/" target="__blank">FantasyCalc</a></p>
-      <p>Trade values from <a href="https://www.reddit.com/user/PeakedInHighSkool/" target="__blank">u/PeakedInHighSkool</a></p>
-    </div>
-  </div>
-)
-
-const LeagueItem = ({ league, onSelect, selected }) => (
-  <button className={`flex-col items-start px-6 py-4 mr-2 rounded-lg focus:outline-none ${selected ? 'bg-gray-800' : 'bg-gray-600'}`} onClick={() => onSelect(league.league_id)}>
-    <h4 className="text-sm font-medium">{league.name}</h4>
-    <p className="text-2xs text-gray-200">{league.total_rosters} team, {league.scoring_settings.rec} ppr</p>
-  </button>
-)
-
-const LeagueList = ({ leagues, onChangeLeague, selectedLeague }) => (
-  <div className="flex">
-    { leagues.map(league => (
-      <LeagueItem key={league.league_id} league={league} onSelect={onChangeLeague} selected={selectedLeague === league.league_id} />
-    ))}
-  </div>
-)
+import LeagueList from "./LeagueList";
+import Footer from "./Footer";
 
 const Layout = ({ children, onChangeLeague, selectedLeague }) => {
-  const user = useStoreState(state => state.user);
-  const leagues = useStoreState(state => state.leagues);
-  
-  const logUserOut = useStoreActions(actions => actions.logUserOut);
+  const user = useStoreState((state) => state.user);
+  const leagues = useStoreState((state) => state.leagues);
+
+  const logUserOut = useStoreActions((actions) => actions.logUserOut);
 
   return (
-    <div className="h-screen w-screen max-w-full inset-0 bg-gray-700 text-white font-sans flex flex-col justify-between overflow-x-hidden p-4">
-      <div className="flex justify-between items-center">
-        <LeagueList leagues={leagues} onChangeLeague={onChangeLeague} selectedLeague={selectedLeague} />
-        { user.username && <button className="btn btn-secondary" onClick={() => logUserOut()}>Logout</button> }
+    <div className='h-screen w-screen max-w-full inset-0 bg-gray-700 text-white font-sans flex flex-col justify-between overflow-x-hidden p-4'>
+      <div className='flex justify-between items-center'>
+        <LeagueList
+          leagues={leagues}
+          onChangeLeague={onChangeLeague}
+          selectedLeague={selectedLeague}
+        />
+        {user.username && (
+          <button className='btn btn-secondary' onClick={() => logUserOut()}>
+            Logout
+          </button>
+        )}
       </div>
-      <main className="w-full flex-grow">
-        {children}
-      </main>
+      <main className='w-full flex-grow'>{children}</main>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default Layout;

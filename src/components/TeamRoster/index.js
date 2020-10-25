@@ -13,6 +13,10 @@ const TeamRoster = ({ team }) => {
     <div className='flex flex-col'>
       <h4 className='font-bold text-gray-200 py-4'>
         {team.ownerMap?.display_name}
+        <span className='text-xs ml-2 font-medium'>
+          ({team.settings?.wins}-{team.settings?.losses}
+          {team.settings?.ties > 0 && `-${team.settings?.ties}`})
+        </span>
       </h4>
       <div className='flex flex-col'>
         <h6 className='font-medium text-gray-200 text-xs'>Starters</h6>
