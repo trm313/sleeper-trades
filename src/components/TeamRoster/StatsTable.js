@@ -1,12 +1,27 @@
 import React from "react";
 
+// TODO: turn statsEnum into statsEnumArr as arr of objects:
+/*
+[{
+  category: "Passing",
+  name: "Pass Att",
+  subname: "Att"
+}, {},...]
+*/
+// edit filterStatsBfyPosition
+// --> turn visibilityByPositionEnum into array of categories to show
+// --> visibleArr = statsEnumArr.filter where stat.category === cateory
+// Return that?
+// Then I can map over categories, then map over stats in that category, and show stat.category, then clustered under that would be stat.subname
+// Help cut down on space, make it easier to consume
+
 const statsEnum = {
   // 1: "Pass A/C", // Passing
   2: "Pass Att", // Passing
   3: "Pass Comp", // passing
   5: "Pass Yds", //
   6: "Pass TDs", //
-  13: "?", //
+  // 13: "?", // no clue what this is - seems to be incorrect Rush Att data
   14: "Rush Yds", // Rushing
   15: "Rush TDs", // Rushing
   20: "Rec", // Receiving
@@ -16,10 +31,10 @@ const statsEnum = {
 
 const filterStatsByPosition = (statsArr, playerPosition) => {
   let visibilityByPositionEnum = {
-    QB: [2, 3, 5, 6, 13, 14, 15],
-    WR: [13, 14, 15, 20, 21, 22],
-    RB: [13, 14, 15, 20, 21, 22],
-    TE: [13, 14, 15, 20, 21, 22],
+    QB: [2, 3, 5, 6, 14, 15],
+    WR: [20, 21, 22, 14, 15],
+    TE: [20, 21, 22, 14, 15],
+    RB: [14, 15, 20, 21, 22],
     DEF: [],
     K: [],
   };
@@ -52,9 +67,9 @@ const compileStatsArr = (statsObj) => {
 };
 
 const StatPair = ({ name, value }) => (
-  <div className='flex flex-col items-center justify-center border-r last:border-r-0 border-gray-400 px-2'>
-    <p className='text-sm'>{value}</p>
-    <p className='text-xs'>{name}</p>
+  <div className='text-sm flex flex-col items-center justify-center border-r last:border-r-0 border-gray-400 px-2'>
+    <p className=''>{value}</p>
+    <p className='text-2xs whitespace-no-wrap'>{name}</p>
   </div>
 );
 
