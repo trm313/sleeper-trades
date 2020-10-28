@@ -27,15 +27,15 @@ const Layout = ({ children, onChangeLeague, selectedLeague }) => {
         )}
       </div>
       <div className='mt-2 flex flex-col items-end'>
-        <p className='text-sm uppercase'>
+        <p className='text-xs uppercase'>
           Trade Values Updated:{" "}
-          <span className='text-green-600 font-medium'>
+          <span className='text-green-600 text-sm font-medium'>
             {appSettings.dataUpdated}
           </span>
         </p>
-        <p className='text-sm uppercase'>
+        <p className='text-xs uppercase'>
           Current Week:{" "}
-          <span className='text-green-600 font-medium'>
+          <span className='text-green-600 text-sm font-medium'>
             Week {appSettings.currentWeek}
           </span>
         </p>
