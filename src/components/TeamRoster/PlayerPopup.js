@@ -87,7 +87,7 @@ const PlayerPopup = ({ player, leagueFormat, currentWeek, onClose }) => {
               {
                 value: player.stats_fantasyCalc?.seasonPts || 0,
                 text: "Total FPts",
-                icon: "fas fa-football-ball text-2xs",
+                icon: "fas fa-football-ball text-2xs text-green-600",
               },
               {
                 value: currTradeValue,

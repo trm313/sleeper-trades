@@ -7,7 +7,7 @@ const StatItem = ({ value, text, icon = null }) => (
         {icon ? (
           <i className={`text-xs mr-2 ${icon}`} />
         ) : (
-          <span className='mr-2'>-</span>
+          <span className='mr-2 text-gray-400'>-</span>
         )}
         <p className='text-base font-semibold'>{value}</p>
       </div>
