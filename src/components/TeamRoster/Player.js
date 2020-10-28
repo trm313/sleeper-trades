@@ -19,9 +19,9 @@ const Player = ({
 
   useOnClickOutside(ref, () => setIsPlayerPopupOpen(false));
 
-  useEffect(() => {
-    console.log("isPlayerPopupOpen changed", isPlayerPopupOpen);
-  }, [isPlayerPopupOpen]);
+  // useEffect(() => {
+  //   console.log("isPlayerPopupOpen changed", isPlayerPopupOpen);
+  // }, [isPlayerPopupOpen]);
 
   const handleClosePopup = () => {
     setIsPlayerPopupOpen(false);
@@ -65,7 +65,11 @@ const Player = ({
   if (
     currentWeek &&
     leagueFormat &&
-    player.stats_fantasyCalc?.values[currentWeek][leagueFormat].value
+    player.stats_fantasyCalc &&
+    player.stats_fantasyCalc.values &&
+    player.stats_fantasyCalc.values[currentWeek] &&
+    player.stats_fantasyCalc.values[currentWeek][leagueFormat] &&
+    player.stats_fantasyCalc.values[currentWeek][leagueFormat].value
   ) {
     let val =
       player.stats_fantasyCalc?.values[currentWeek][leagueFormat].value * 1;

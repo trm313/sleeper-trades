@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import LeagueList from "./LeagueList";
 import Footer from "./Footer";
+import appSettings from "../../data/appSettings.json";
 
 const Layout = ({ children, onChangeLeague, selectedLeague }) => {
   const user = useStoreState((state) => state.user);
@@ -24,6 +25,20 @@ const Layout = ({ children, onChangeLeague, selectedLeague }) => {
             Logout
           </button>
         )}
+      </div>
+      <div className='mt-2 flex flex-col items-end'>
+        <p className='text-sm uppercase'>
+          Trade Values Updated:{" "}
+          <span className='text-green-600 font-medium'>
+            {appSettings.dataUpdated}
+          </span>
+        </p>
+        <p className='text-sm uppercase'>
+          Current Week:{" "}
+          <span className='text-green-600 font-medium'>
+            Week {appSettings.currentWeek}
+          </span>
+        </p>
       </div>
       <main className='w-full flex-grow'>{children}</main>
       <Footer />

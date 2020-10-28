@@ -5,6 +5,8 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 
 import { loadTeamsWithPlayers } from "./controllers/playersController";
 
+import appSettings from "./data/appSettings.json";
+
 import Home from "./pages";
 import Layout from "./components/Layout";
 import Login from "./components/Login";
@@ -44,10 +46,12 @@ function App() {
 
   useEffect(() => {
     const calculateWeekNumber = () => {
-      let now = new Date();
-      let originalStartDate = new Date("09-SEP-2020 12:00:00 GMT-0400");
-      let weeksElapsed = Math.abs(differenceInWeeks(originalStartDate, now));
-      return weeksElapsed + 1;
+      // PROBLEM: If this updates before the data does, none of the players have the new week's data
+      // let now = new Date();
+      // let originalStartDate = new Date("09-SEP-2020 12:00:00 GMT-0400");
+      // let weeksElapsed = Math.abs(differenceInWeeks(originalStartDate, now));
+      // return weeksElapsed + 1;
+      return appSettings.currentWeek;
     };
 
     if (!appState.currentWeek) {
