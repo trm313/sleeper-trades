@@ -3,6 +3,7 @@ import Draggable from "react-draggable";
 
 import TradeValueTrend from "./TradeValueTrend";
 import StatsTable from "./StatsTable";
+import StatRow from "./StatRow";
 
 const styles = {
   container:
@@ -61,15 +62,41 @@ const PopupHeader = ({ player, onClose }) => (
 );
 
 const PlayerPopup = ({ player, leagueFormat, currentWeek, onClose }) => {
-  let data = generateTradeValueTrendData(
+  let valueTrendData = generateTradeValueTrendData(
     player.stats_fantasyCalc?.values,
     leagueFormat
   );
+
+  let currTradeValue =
+    player.stats_fantasyCalc?.values[currentWeek][leagueFormat].value || 0;
+  let currTrend =
+    player.stats_fantasyCalc?.values[currentWeek][leagueFormat].trend || 0;
+  let currTrendIcon = null;
+  if (currTrend > 0) currTrendIcon = "fas fa-caret-up text-green-600";
+  if (currTrend < 0) currTrendIcon = "fas fa-caret-down text-red-600";
+
+  // Get icon direction
 
   return (
     <Draggable>
       <div className={styles.container}>
         <PopupHeader player={player} onClose={onClose} />
+        <div className='my-2'>
+          <StatRow
+            stats={[
+              {
+                value: player.stats_fantasyCalc?.seasonPts || 0,
+                text: "Total FPts",
+                icon: "fas fa-football-ball text-2xs",
+              },
+              {
+                value: currTradeValue,
+                text: "Curr Value",
+                icon: currTrendIcon,
+              },
+            ]}
+          />
+        </div>
         <div className='my-2'>
           <StatsTable
             stats={player.stats_fantasyCalc?.stats}
@@ -78,7 +105,7 @@ const PlayerPopup = ({ player, leagueFormat, currentWeek, onClose }) => {
           />
         </div>
         <div className='my-2 flex flex-col'>
-          <TradeValueTrend data={data} />
+          <TradeValueTrend data={valueTrendData} />
         </div>
       </div>
     </Draggable>
