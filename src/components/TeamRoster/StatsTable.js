@@ -42,19 +42,12 @@ const filterStatsByPosition = (statsArr, playerPosition) => {
   let visArr = visibilityByPositionEnum[playerPosition];
 
   let visibleStats = visArr.map((i) => statsArr.find((s) => s.objKey === i));
-  console.log("filterStatsByPosition", {
-    statsArr,
-    playerPosition,
-    visibleStats,
-    visArr,
-  });
   return visibleStats;
 };
 
 const compileStatsArr = (statsObj) => {
   let statsArr = [];
   for (const [key, value] of Object.entries(statsEnum)) {
-    console.log("compileStats", { key, value });
     let statItem = {
       name: statsEnum[key],
       category: "",
@@ -80,7 +73,6 @@ const StatsTable = ({ stats, seasonPts, position }) => {
 
   let statsArr = compileStatsArr(stats);
   let visibleStats = filterStatsByPosition(statsArr, position);
-  console.log("StatsTable", { stats, statsArr, visibleStats });
   return (
     <div className=''>
       <div className='flex p-2'>

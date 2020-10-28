@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 import { positionStyles } from "../../constants/styleEnums";
@@ -18,6 +18,16 @@ const Player = ({
   const [isPlayerPopupOpen, setIsPlayerPopupOpen] = useState(false);
 
   useOnClickOutside(ref, () => setIsPlayerPopupOpen(false));
+
+  useEffect(() => {
+    console.log("isPlayerPopupOpen changed", isPlayerPopupOpen);
+  }, [isPlayerPopupOpen]);
+
+  const handleClosePopup = () => {
+    setIsPlayerPopupOpen(false);
+    console.log("handleClose");
+  };
+
   // if (!player) {
   //   return null;
   // }
@@ -61,11 +71,6 @@ const Player = ({
       player.stats_fantasyCalc?.values[currentWeek][leagueFormat].value * 1;
     tradeValue = val;
   }
-
-  const handleClosePopup = () => {
-    console.log("handleClose");
-    setIsPlayerPopupOpen(false);
-  };
 
   return (
     <div
