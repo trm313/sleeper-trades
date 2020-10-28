@@ -2,7 +2,7 @@ import React from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 import Player from "./Player";
-import Analysis from "./Analysis";
+import TeamAnalysis from "./TeamAnalysis";
 
 const TeamRoster = ({ team }) => {
   const appState = useStoreState((state) => state.appState);
@@ -28,6 +28,7 @@ const TeamRoster = ({ team }) => {
           {team.settings?.ties > 0 && `-${team.settings?.ties}`})
         </span>
       </h4>
+      <TeamAnalysis team={team} />
       <div className='flex flex-col'>
         <h6 className='font-medium text-gray-200 text-xs'>Starters</h6>
         {team.startersMap.map((player) => (

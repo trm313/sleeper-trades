@@ -4,6 +4,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import { positionStyles } from "../../constants/styleEnums";
 import PlayerPopup from "./PlayerPopup";
 import EmptySpot from "./EmptySpot";
+import PositionPill from "./PositionPill";
 
 const Player = ({
   player,
@@ -39,18 +40,18 @@ const Player = ({
     ? player.full_name
     : player.first_name + " " + player.last_name;
 
-  let bgColor;
-  let posText = positionStyles[player.position].text;
-  if (isInjuredReserve) {
-    bgColor = positionStyles.IR.bgColor;
-    // posText = positionStyles.IR.text;
-  } else if (benched) {
-    bgColor = positionStyles.BN.bgColor;
-    // posText = positionStyles.BN.text;
-  } else {
-    bgColor = positionStyles[player.position].bgColor;
-    posText = positionStyles[player.position].text;
-  }
+  // let bgColor;
+  // let posText = positionStyles[player.position].text;
+  // if (isInjuredReserve) {
+  //   bgColor = positionStyles.IR.bgColor;
+  //   // posText = positionStyles.IR.text;
+  // } else if (benched) {
+  //   bgColor = positionStyles.BN.bgColor;
+  //   // posText = positionStyles.BN.text;
+  // } else {
+  //   bgColor = positionStyles[player.position].bgColor;
+  //   posText = positionStyles[player.position].text;
+  // }
 
   let injStatus = player.injury_status || null;
   if (player.injury_status === "Questionable") {
@@ -90,17 +91,11 @@ const Player = ({
           onClose={handleClosePopup}
         />
       )}
-      <div
-        className='w-10 h-6 rounded text-2xs flex items-center justify-center flex-shrink-0 mr-1'
-        style={{
-          backgroundColor: bgColor,
-          borderBottom: benched
-            ? `3px solid ${positionStyles[player.position].bgColor}`
-            : "none",
-        }}
-      >
-        {posText}
-      </div>
+      <PositionPill
+        position={player.position}
+        isBenched={benched}
+        isReserve={isInjuredReserve}
+      />
       <div className=''>
         <p
           className='w-24 truncate text-sm font-medium'
