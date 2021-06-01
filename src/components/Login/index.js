@@ -66,9 +66,11 @@ const Login = () => {
             Why do I need to enter my Sleeper username?
           </h6>
           <p className='text-sm mb-4 text-gray-200'>
-            We will use it to load all of the leagues that your in, and the
-            rosters full those leagues. This does not provide us authorization
-            to your account in any way.
+            We will use it to load all of the leagues that you're in, and the
+            rosters from those leagues.{" "}
+            <strong>
+              This does not provide us authorization to your account in any way.
+            </strong>
           </p>
           <h6 className='text-sm uppercase font-medium mb-2 text-green-600'>
             How do I find my Sleeper username?
