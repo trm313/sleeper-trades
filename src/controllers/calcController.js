@@ -1,13 +1,10 @@
-import axios from "axios";
-import { positionStyles } from "../constants/styleEnums";
-
-const promiseTemp = (idArray) => {
-  const tetheredTemp = (resolve, reject) => {
-    let data;
-    resolve(data);
-  };
-  return new Promise(tetheredTemp);
-};
+// const promiseTemp = (idArray) => {
+//   const tetheredTemp = (resolve, reject) => {
+//     let data;
+//     resolve(data);
+//   };
+//   return new Promise(tetheredTemp);
+// };
 
 export const calculateTotalTeamValue = (
   players,

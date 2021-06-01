@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { useStoreActions } from "easy-peasy";
 
 import sleeperLogo from "../../images/Sleeper-Logo_w-Text.png";
 import sleeperUsernameDemo from "../../images/Sleeper-Username-box_Demo.png";
@@ -8,7 +8,6 @@ import appDemo from "../../images/Homepage_Demo@2x.png";
 const Login = () => {
   const [input, setInput] = useState("");
 
-  const user = useStoreState((state) => state.user);
   const setUsername = useStoreActions((actions) => actions.setUsername);
 
   const onSubmit = (e) => {
@@ -23,7 +22,7 @@ const Login = () => {
       <img
         src={appDemo}
         className='w-full sm:w-3/4 md: w-2/3 lg:w-1/2 transform skew-x-6 shadow-2xl rounded-lg sm:rounded-2xl'
-        alt='App demo'
+        alt='Sleeper Trades demo screenshot'
       />
       <div className='flex flex-wrap items-center justify-center text-3xl mt-4'>
         <i className='fas fa-bolt mr-4' />
@@ -78,7 +77,11 @@ const Login = () => {
           <p className='text-sm mb-4 text-gray-200'>
             Look for this tray in the corner of the Sleeper app or website
           </p>
-          <img src={sleeperUsernameDemo} className='shadow-xl' />
+          <img
+            src={sleeperUsernameDemo}
+            className='shadow-xl'
+            alt='How to find Sleeper username'
+          />
         </div>
       </div>
     </div>

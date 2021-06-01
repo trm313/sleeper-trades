@@ -1,4 +1,4 @@
-import { createStore, action, thunk, useStoreActions } from "easy-peasy";
+import { action, thunk } from "easy-peasy";
 
 const userModel = {
   id: null,

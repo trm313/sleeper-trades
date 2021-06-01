@@ -49,7 +49,7 @@ const compileStatsArr = (statsObj) => {
   let statsArr = [];
   for (const [key, value] of Object.entries(statsEnum)) {
     let statItem = {
-      name: statsEnum[key],
+      name: value,
       category: "",
       value: statsObj[key],
       objKey: parseInt(key),

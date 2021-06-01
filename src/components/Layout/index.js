@@ -1,6 +1,5 @@
 import React from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import LeagueList from "./LeagueList";
 import Footer from "./Footer";

@@ -1,5 +1,5 @@
 import React from "react";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { useStoreState } from "easy-peasy";
 
 import TeamRoster from "../components/TeamRoster";
 import FullscreenLoader from "../components/Loading/fullscreenLoader";

@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
-import { positionStyles } from "../../constants/styleEnums";
 import PlayerPopup from "./PlayerPopup";
 import EmptySpot from "./EmptySpot";
 import PositionPill from "./PositionPill";

@@ -1,16 +1,5 @@
 import React from "react";
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Label,
-} from "recharts";
+import { AreaChart, Area, XAxis, YAxis } from "recharts";
 
 const NoTrendAvailable = ({ trendHeight, trendWidth }) => (
   <div

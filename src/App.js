@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { differenceInWeeks } from "date-fns";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 import { loadTeamsWithPlayers } from "./controllers/playersController";
@@ -32,6 +31,13 @@ function App() {
 
   const setTeams = useStoreActions((actions) => actions.setTeams);
 
+  const handleSelectLeague = async (id) => {
+    if (id) {
+      setActiveLeagueId(id);
+      await getLeagueTeams(id, setTeams);
+    }
+  };
+
   useEffect(() => {
     if (localStorage.getItem("username")) {
       let storage_username = localStorage.getItem("username");
@@ -42,7 +48,7 @@ function App() {
         setActiveLeagueId(storage_activeLeagueId);
       }
     }
-  }, []);
+  }, [setUsername, setActiveLeagueId]);
 
   useEffect(() => {
     const calculateWeekNumber = () => {
@@ -58,7 +64,7 @@ function App() {
       let weekNumber = calculateWeekNumber();
       setCurrentWeek(`Week ${weekNumber}`);
     }
-  }, []);
+  }, [setCurrentWeek, appState.currentWeek]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -73,7 +79,7 @@ function App() {
     };
 
     user.username && fetchUserData();
-  }, [user.username]);
+  }, [user.username, setUser]);
 
   useEffect(() => {
     const fetchUserLeagues = async () => {
@@ -84,23 +90,40 @@ function App() {
     };
 
     if (user.id) fetchUserLeagues();
-  }, [user.id]);
+  }, [user.id, setLeagues]);
 
   useEffect(() => {
     if (!localStorage.getItem("activeLeagueId") && !activeLeagueId && leagues) {
       setActiveLeagueId(leagues[0]?.league_id);
     }
-  }, [leagues, activeLeagueId]);
+  }, [leagues, activeLeagueId, setActiveLeagueId]);
 
   useEffect(() => {
     if (leagues.length > 0 && activeLeagueId)
       getLeagueTeams(activeLeagueId, setTeams);
-  }, [leagues, activeLeagueId]);
+  }, [leagues, activeLeagueId, setTeams]);
 
   useEffect(() => {
+    const determineAndSetLeagueFormat = async (
+      league_id = activeLeagueId,
+      cb
+    ) => {
+      let league = await leagues.find((l) => l.league_id === league_id);
+      if (league) {
+        let rec = league.scoring_settings.rec;
+        let leagueFormat;
+        if (rec === 0) leagueFormat = "standard";
+        if (rec === 0.5) leagueFormat = "halfppr";
+        if (rec === 1) leagueFormat = "ppr";
+
+        cb(leagueFormat);
+      } else {
+        return;
+      }
+    };
     if (activeLeagueId)
       determineAndSetLeagueFormat(activeLeagueId, setLeagueFormat);
-  }, [leagues, activeLeagueId]);
+  }, [leagues, activeLeagueId, setLeagueFormat]);
 
   const getLeagueTeams = async (league_id, cb) => {
     let rostersRes = await axios.get(
@@ -109,31 +132,6 @@ function App() {
     let teamsData = await loadTeamsWithPlayers(rostersRes.data);
     if (cb) cb(teamsData);
     return teamsData;
-  };
-
-  const determineAndSetLeagueFormat = async (
-    league_id = activeLeagueId,
-    cb
-  ) => {
-    let league = await leagues.find((l) => l.league_id === league_id);
-    if (league) {
-      let rec = league.scoring_settings.rec;
-      let leagueFormat;
-      if (rec === 0) leagueFormat = "standard";
-      if (rec === 0.5) leagueFormat = "halfppr";
-      if (rec === 1) leagueFormat = "ppr";
-
-      cb(leagueFormat);
-    } else {
-      return;
-    }
-  };
-
-  const handleSelectLeague = async (id) => {
-    if (id) {
-      setActiveLeagueId(id);
-      await getLeagueTeams(id, setTeams);
-    }
   };
 
   return (

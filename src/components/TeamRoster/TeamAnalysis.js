@@ -2,7 +2,7 @@ import React from "react";
 import { useStoreState } from "easy-peasy";
 import {
   calculateTotalTeamValue,
-  calculatePositionalNeeds,
+  // calculatePositionalNeeds,
 } from "../../controllers/calcController";
 
 const TeamAnalysis = ({ team }) => {
