@@ -6,7 +6,7 @@ const Footer = () => {
 
   return (
     <div className='flex justify-between'>
-      <div className='flex relative'>
+      <div className='flex relative items-center'>
         {showLegalStatements && (
           <LegalStatements handleClose={() => setShowLegalStatements(false)} />
         )}
@@ -16,6 +16,9 @@ const Footer = () => {
         >
           Terms of Use | Privacy Policy | Cookie Policy
         </button>
+        <p className='text-xs'>
+          &copy; {new Date().getFullYear()} Hubbub Studios
+        </p>
       </div>
       <div className='flex flex-col items-end text-xs'>
         <p>
