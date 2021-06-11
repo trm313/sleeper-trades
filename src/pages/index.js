@@ -1,5 +1,5 @@
 import React from "react";
-import { useStoreState } from "easy-peasy";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
 import TeamRoster from "../components/TeamRoster";
 import FullscreenLoader from "../components/Loading/fullscreenLoader";
@@ -7,9 +7,10 @@ import FullscreenLoader from "../components/Loading/fullscreenLoader";
 const Home = () => {
   const user = useStoreState((state) => state.user);
   const teams = useStoreState((state) => state.teams);
+  const logUserOut = useStoreActions((actions) => actions.logUserOut);
 
   if (teams.length === 0 || !user.id) {
-    return <FullscreenLoader />;
+    return <FullscreenLoader onCancel={() => logUserOut()} />;
   }
 
   const myTeam = teams.find((t) => t.owner_id === user.id);

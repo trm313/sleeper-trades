@@ -16,6 +16,7 @@ function App() {
   const user = useStoreState((state) => state.user);
   const setUser = useStoreActions((actions) => actions.setUser);
   const setUsername = useStoreActions((actions) => actions.setUsername);
+  const logUserOut = useStoreActions((actions) => actions.logUserOut);
 
   const appState = useStoreState((state) => state.appState);
   const setLeagueFormat = useStoreActions((actions) => actions.setLeagueFormat);
@@ -71,15 +72,20 @@ function App() {
       let userRes = await axios.get(
         `https://api.sleeper.app/v1/user/${user.username}`
       );
-      setUser({
-        id: userRes.data.user_id,
-        username: userRes.data.username,
-        avatar: userRes.data.avatar,
-      });
+      if (userRes?.data?.user_id) {
+        setUser({
+          id: userRes.data.user_id,
+          username: userRes.data.username,
+          avatar: userRes.data.avatar,
+        });
+      } else {
+        console.log("No Sleeper data returned for username " + user.username);
+        logUserOut();
+      }
     };
 
     user.username && fetchUserData();
-  }, [user.username, setUser]);
+  }, [user.username, setUser, logUserOut]);
 
   useEffect(() => {
     const fetchUserLeagues = async () => {
